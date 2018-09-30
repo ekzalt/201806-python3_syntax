@@ -2,10 +2,12 @@
 
 
 def addNums(a: int, b: int) -> int:
+    """calculate sum"""  # add definition
     return a + b
 
 
 def printMsg(msg: str) -> None:
+    """prints message"""
     print(msg)
 
 
