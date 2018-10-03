@@ -1,10 +1,19 @@
 # Словари (dict) - ассоциативные массивы (PHP), объекты (javaScript)
 
-print('\ndict (associative arrays, objects):\n')
+user1 = {
+    'name': 'Vasya',
+    'age': 30
+}
 
-user1 = {'name': 'Vasya', 'age': 30}
 print(user1)
+# бросит ошибку, если такого ключа нет
 print(user1['name'])
+# вернет None, если такого ключа нет
+print(user1.get('name'))
+# get принимает вторым аргументом default значение
+print(user1.get('sex', 'male'))
+# бросит ошибку, если такого ключа нет
+print(user1['sex'])
 
 # присвоение нового свойства или перезапиcь свойства новым значением
 user1['job'] = 'developer'

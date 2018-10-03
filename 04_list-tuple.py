@@ -71,6 +71,8 @@ print(arr5[1:2])
 print(arr5[2:-2])
 print(arr5[-3:-1])
 print(arr5[::2])
+# реверс массива
+print(arr5[::-1])
 
 arrLink = arr5  # other link to arr5
 arrCopy = arr5[:]  # copy of arr5
@@ -82,10 +84,13 @@ if 'three' in arr5:
 else:
     print('three not found :(')
 
+############################################################
+
 # Кортежи (tuple) - неизменяемые массивы, методы те же самые, кроме мутирующих
 
 arrList = [10, 20, 30, 40, 50]
 arrTuple = (10, 20, 30, 40, 50)
+arrTuple2 = 10, 20, 30, 40, 50
 
 print(arrTuple)
 print('arrList size:', arrList.__sizeof__())

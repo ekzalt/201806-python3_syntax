@@ -9,15 +9,30 @@
 # 't' - чтение в текстовом режиме (по умолчанию)
 # '+' - чтение и запись
 
-print('\nFile operations:\n')
-
 pathToReadFile = './text.txt'
 readStream = open(pathToReadFile)  # 'rt' as default
 data = readStream.read()  # read from stream
-print(type(data))  # -> str
+
+# читаем частями но n (1024) байт, 1kb, полезно для пайпа
+# data2 = readStream.read(1024)
+# data3 = readStream.read(1024)
+# data4 = readStream.read(1024)
+
 print(data)
 # после всех операций закрываем stream
 readStream.close()
+
+############################################################
+
+# получим массив строк
+
+readStream = open('./text.txt', 'r')
+lines = readStream.readlines()
+readStream.close()
+
+print(lines)
+
+############################################################
 
 # read line by line
 
@@ -36,6 +51,8 @@ for i, line in enumerate(readStream):
     print(i, line.strip())
 
 readStream.close()
+
+############################################################
 
 # запись в файл
 

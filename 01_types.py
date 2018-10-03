@@ -71,3 +71,16 @@ fullName = 'vasya' + ' ' + 'pupkin'
 print(fullName.upper())
 print(fullName.title())
 print(fullName.capitalize())
+
+# %s - string
+# %d - integer
+# %f - float
+print('Hi, %s %s' %(firstName, lastName))
+
+# форматированная строка
+print('Hi, {} {}'.format(firstName, lastName))
+# именные аргументы
+print('Hi, {first} {last}'.format(first=firstName, last=lastName))
+# обращаемся к массиву аргументов по индексам
+print('{0} {1} {1} {0}'.format(firstName, lastName))
+# поддерживает словари

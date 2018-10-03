@@ -1,16 +1,30 @@
 # Функции (def, lambda)
 
-print('\nfunctions:\n')
-
 
 def typeChecker(arg):  # объявление функции
     print('typeChecker: type:', type(arg), ', value:', arg)
     pass  # -> None , в других языках - return void
 
 
-print('type of def function:', type(typeChecker))
-print('value of def function:', typeChecker)
 print(typeChecker(123))
+
+# использование assert для проверки значений аргументов
+# выбросит AssertionError
+
+
+def logger(msg: str) -> None:
+    '''logger'''
+    assert msg != ''
+    # может принимать второй аргумент - сообщение об ошибке
+    # assert number > 0, 'Integer shold be more than zero'
+    print(msg)
+    pass
+
+
+logger('hello')
+logger('')
+
+############################################################
 
 # closure - замыкания в Python
 
