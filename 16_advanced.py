@@ -1,6 +1,6 @@
 # binary search
 
-def binarySearch(sort: list, target: int, start: int, stop: int, value: bool):
+def binarySearchRec(sort: list, target: int, start: int, stop: int, value: bool):
     """binary search with recursion"""
     if start > stop:
         if value:
@@ -18,18 +18,49 @@ def binarySearch(sort: list, target: int, start: int, stop: int, value: bool):
                 return mid  # found index
 
         elif target < sort[mid]:
-            return binarySearch(sort, target, start, mid - 1, value)
+            return binarySearchRec(sort, target, start, mid - 1, value)
         else:
-            return binarySearch(sort, target, mid + 1, stop, value)
+            return binarySearchRec(sort, target, mid + 1, stop, value)
 
 
-arr = [0, 11, 22, 33, 44, 55, 66, 77, 88, 99]
+arr = range(0, 1000000)[::2]
 
-print(binarySearch(arr, 33, 0, len(arr), True))
-print(binarySearch(arr, 74, 0, len(arr), True))
+print(binarySearchRec(arr, 222222, 0, len(arr), True))
+print(binarySearchRec(arr, 777777, 0, len(arr), True))
 
-print(binarySearch(arr, 33, 0, len(arr), False))
-print(binarySearch(arr, 74, 0, len(arr), False))
+print(binarySearchRec(arr, 222222, 0, len(arr), False))
+print(binarySearchRec(arr, 777777, 0, len(arr), False))
+
+
+def binarySearchLoop(sort: list, target: int, start: int, stop: int, value: bool):
+    """binary search with while"""
+    
+    while start <= stop:
+        mid = (start + stop) // 2
+    
+        if target == sort[mid]:
+            if value:
+                return sort[mid]
+            else:
+                return mid
+        elif target < sort[mid]:
+            stop = mid - 1
+        else:
+            start = mid + 1
+    else:
+        if value:
+            return None
+        else:
+            return -1
+
+
+arr = range(0, 1000000)[::2]
+
+print(binarySearchLoop(arr, 222222, 0, len(arr), True))
+print(binarySearchLoop(arr, 777777, 0, len(arr), True))
+
+print(binarySearchLoop(arr, 222222, 0, len(arr), False))
+print(binarySearchLoop(arr, 777777, 0, len(arr), False))
 
 ############################################################
 
