@@ -38,7 +38,7 @@ def tryDivide(a: int, b: int) -> float:
         print(sys.exc_info()[1])
         return 0
     # else:
-        # опционально, если except не сработал
+        # опционально, если ошибок не было
     # finally:
         # опционально, блок сработает всегда
 

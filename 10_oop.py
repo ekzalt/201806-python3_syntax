@@ -1,12 +1,25 @@
-# объявление класса
-
-
 class Person:
     """Person class"""
-    # default params
+    # статические свойства класса
     name = 'Anonymous'
     age = 0
 
+    # метод класса
+    # может использовать только класс
+    @classmethod
+    def printType(cls) -> None:
+        """class - print class type"""
+        print(type(cls))
+
+    # статический метод класса
+    # может использовать и класс и инстанс
+    @staticmethod
+    def printInfo() -> None:
+        """static - print user info"""
+        print(Person.name, Person.age)
+
+    # метод инстанса
+    # может использовать только инстанс
     def setName(self, name: str) -> None:
         """set name"""
         self.name = name
@@ -19,37 +32,16 @@ class Person:
 # Важно! Словари (dict) - это ассоциативные массивы в Python, а объекты - это только экземпляры классов!
 # Обращение к свойствам словаря через скобочную нотацию myDict['propName'], а объекта - через точечную myInst.propName
 
-p1 = Person()
-print(type(p1))
-print('name:', p1.name, ', age:', p1.age)
+print(Person.name, Person.age)
+Person.printType()
+Person.printInfo()
 
+p1 = Person()
 p1.setName('Vasya')
 p1.setAge(30)
-print('name:', p1.name, ', age:', p1.age)
+print(p1.name, p1.age)
 
-# наследование в Python
-
-
-class Student(Person):
-    """Student extends Person"""
-    # default params
-    course = 1
-
-    def setCourse(self, course: int) -> None:
-        """unique student method"""
-        self.course = course
-
-    # для переопределения метода достаточно создать в наследнике метод с тем же именем
-    def setAge(self, age: int) -> None:
-        """override parent method"""
-        self.age = age + 100
-
-
-s1 = Student()
-s1.setCourse(2)
-s1.setAge(5)  # метод переопределен -> 105
-print(type(s1))
-print('name:', s1.name, ', age:', s1.age, ', course:', s1.course)
+############################################################
 
 # constructor в Python
 
@@ -64,10 +56,15 @@ class User:
         # default params
         self.health = 100
 
+    def printInfo(self) -> None:
+        """print user info"""
+        print(self.name, self.age)
+
 
 u1 = User('Petya', 20)  # передаем параметры в конструктор
-print(type(u1))
-print('name:', u1.name, ', age:', u1.age, ', health:', u1.health)
+u1.printInfo()
+
+############################################################
 
 # наследование с конструктором
 
@@ -78,22 +75,102 @@ class SuperUser(User):
     def __init__(self, name: str, age: int, role: str):
         """constructor"""
         super().__init__(name, age)
-        # __propName - создание приватного свойства
+        # _propName - создание служебного свойства (доступно)
+        # __propName - создание приватного свойства (скрыто)
         self.__role = role
 
-    def setRole(self, role: str) -> None:
-        """set SuperUser role"""
-        self.__role = role
+    # переопределение метода
+    def printInfo(self) -> None:
+        """print user info"""
+        print(self.name, self.__role)
 
-    def getRole(self) -> str:
+    # геттер
+    @property
+    def role(self) -> str:
         """get SuperUser role"""
         return self.__role
 
+    # сеттер
+    @role.setter
+    def role(self, role: str) -> None:
+        """set SuperUser role"""
+        self.__role = role
+
 
 su1 = SuperUser('Vasya', 30, 'user')
+su1.printInfo()
+print(su1.role)
+su1.role = 'admin'
+print(su1.role)
 
+# описание класса
 print(type(su1))
-print('name:', su1.name, ', age:', su1.age, ', health:', su1.health)
+print(su1.__class__)
 
-su1.setRole('admin')
-print(su1.getRole())
+# кортеж его классов-родителей
+print(SuperUser.__bases__)
+
+# является ли этот объект инстансом этого класса
+print(isinstance(su1, SuperUser))
+
+# является ли этот класс наследником этого родительского класса
+print(issubclass(SuperUser, User))
+
+# .mro() - вернет массив со всей иерархией наследования
+
+
+def checkInstance(inst: object, cls: object) -> bool:
+    '''checkInstance'''
+    return cls in type(inst).mro()
+
+
+def checkSubClass(child: object, parent: object) -> bool:
+    '''checkSubClass'''
+    return parent in child.mro()
+
+
+print(checkInstance(su1, SuperUser))
+print(checkSubClass(SuperUser, User))
+
+############################################################
+
+# "магические методы", методы-перехватчики
+
+
+class PasswordChecker:
+    def __init__(self):
+        self.password = None
+
+    # метод-перхватчик __getattribute__
+    def __getattribute__(self, attr):
+        if attr == 'secretKey' and self.password == '123':
+            return 'secretValue'
+        else:
+            return object.__getattribute__(self, attr)
+
+    # метод-перехватчик вызовется перед удалением объекта из памяти
+    def __del__(self):
+        print(self, 'will be deleted from memory')
+
+
+pch = PasswordChecker()
+# print(pch.secretKey)  # AttributeError
+pch.password = '123'
+print(pch.secretKey)
+
+############################################################
+
+# pattern Singleton
+
+
+class Singleton:
+    __instance = None
+
+    def __new__(cls):
+        if cls.__instance is None:
+            cls.__instance = object.__new__(cls)
+
+        return cls.__instance
+
+    def __init__(self):
+        self.data = 1234567890
