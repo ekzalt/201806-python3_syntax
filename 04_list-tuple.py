@@ -86,6 +86,58 @@ else:
 
 ############################################################
 
+# генераторы списков
+
+# (values) = [ (expression) for (item) in (items) ]
+# (values) = [ (expression) for (item) in (items) if (condition) ]
+
+# деструктуризация list, переупаковка в list
+sourceNums = [10, 20, 30, 40, 50]
+targetNums = [n for n in sourceNums]
+print(targetNums)
+
+# mapping по списку словарей
+user1 = {'name': 'alex', 'car': 'bmw'}
+user2 = {'name': 'john', 'car': 'audi'}
+user3 = {'name': 'max'}
+users = [user1, user2, user3]
+# cars = [user['car'] for user in users]  # небезопасно
+cars = [user.get('car', '') for user in users]  # безопасно
+print(cars)
+
+# filter по значениям
+names = ['alex', 'john', 'max', 'denis', 'jack']
+filteredNames = [name for name in names if name.startswith('j')]
+print(filteredNames)
+
+############################################################
+
+# встроенный map, возвращает итератор
+
+
+def getCar(user: dict) -> str:
+    '''getCar'''
+    return user.get('car', '')
+
+
+# userCars = list(map(getCar, users))
+userCars = list(map(lambda user: user.get('car', ''), users))
+print(userCars)
+
+# встроенный filter, возвращает итератор
+
+
+def startsWithJ(string: str) -> bool:
+    '''startsWithJ'''
+    return string.startswith('j')
+
+
+# userNames = list(filter(startsWithJ, names))
+userNames = list(filter(lambda name: name.startswith('j'), names))
+print(userNames)
+
+############################################################
+
 # Кортежи (tuple) - неизменяемые массивы, методы те же самые, кроме мутирующих
 
 arrList = [10, 20, 30, 40, 50]

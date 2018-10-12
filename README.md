@@ -61,3 +61,15 @@ https://aws.amazon.com/ru/sdk-for-python/
 
 *PyGame* - Приложение для написания игр и мультимедиа приложений. Базируется на мультимедийной библиотеке *SDL*.
 https://www.pygame.org/news
+
+## PIP - пакетный менеджер Python
+
+`pip` - общая справка
+`pip help <commandName>` - справка о конкретной команде
+`pip search <key words>` - поск в репозиториях *pip* по ключевым словам
+`pip list` [ -o | --outdated ] - список установленных пакетов
+`pip show <packageName>` - основная информация про пакет
+`pip check` - проверка не установленных зависимостей
+`pip freeze > requirements.txt` - вывод установленных зависимостей
+`pip install <packageName>` - установка пакета по имени
+`pip install -r requirements.txt` - установка пакетов по именам из файла

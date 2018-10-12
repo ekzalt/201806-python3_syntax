@@ -38,7 +38,9 @@ def closureSum(a=0):  # аргументы по умолчанию
 print(closureSum(2)(3))
 
 
-def iterateArgs(*rest):  # type 'rest' = tuple (frozen array) - одна *
+# *args - tuple
+def iterateArgs(*rest):
+    '''iterateArgs'''
     print('type:', type(rest), ', value:', rest)
     result = 0
 
@@ -50,14 +52,21 @@ def iterateArgs(*rest):  # type 'rest' = tuple (frozen array) - одна *
 
 # *rest - альтернатива ...rest Array оператора в JavaScript
 print(iterateArgs(1, 2, 3))
+# деструктуризация list, переупаковка в tuple
+print(iterateArgs(*[1, 2, 3]))
 
 
-def getUser(**obj):  # type 'obj' = dict (JS Object) - две **  - альтернатива ...rest Object оператора в JavaScript
+# **kwargs (key-value-args) - dict
+def getUser(**obj):
+    '''getUser'''
     print('type:', type(obj), ', value:', obj)
     return obj
 
 
+# альтернатива ...rest Object оператора в JavaScript
 print(getUser(name='Vasya', age=30))
+# деструктуризация dict, переупаковка в dict
+print(getUser(**{'name': 'Vasya', 'age': 30}))
 
 ############################################################
 
@@ -151,6 +160,27 @@ print(multiple(10, 4))  # -> 40
 
 # К одной функции можно применять несколько декораторов
 # @decorator1
-# @decorator2
+# @decorator2(args) - декораторы тоже принимают аргументы :)
 # @decorator3
 # def funcToDecore(): ...
+
+############################################################
+
+# Генераторы
+
+
+def countdown(n: int) -> int:
+    '''generator countdown'''
+    while n != 0:
+        n -= 1
+        yield n
+
+
+gen1 = countdown(2)
+print(next(gen1))
+print(next(gen1))
+# print(next(gen))  # StopIteration error
+
+# итераторы и генераторы
+for n in countdown(4):
+    print(n)

@@ -17,9 +17,16 @@ try:
 except ImportError:
     print('ImportError: No module \'nomodule\'')
 
+# число PI
 print(math.pi)
+# текущее время в секундах
 print(time.time())
+# текущая папка
 print(os.getcwd())
+# переменные окружения
+print(os.environ)
+print(os.environ['OS'])
+# случайное число от 0 до 1
 print(rand.random())
 
 print('this is \'mod\' module inner properties:')
