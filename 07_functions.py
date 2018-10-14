@@ -13,7 +13,7 @@ print(typeChecker(123))
 
 
 def logger(msg: str) -> None:
-    '''logger'''
+    '''logger'''  # это многострочный комментарий docstring - хранится в атрибуте функции .__doc__
     assert msg != ''
     # может принимать второй аргумент - сообщение об ошибке
     # assert number > 0, 'Integer shold be more than zero'
@@ -49,6 +49,10 @@ def iterateArgs(*rest):
 
     return result
 
+
+############################################################
+
+# *args, **kwargs
 
 # *rest - альтернатива ...rest Array оператора в JavaScript
 print(iterateArgs(1, 2, 3))
@@ -184,3 +188,62 @@ print(next(gen1))
 # итераторы и генераторы
 for n in countdown(4):
     print(n)
+
+# создание генератора из списка
+listGen = (x for x in [10, 20, 30])
+
+for x in listGen:
+    print(x)
+
+
+# создание генератора для чтения файла
+def getLine(filePath: str) -> str:
+    '''getLine'''
+    readStream = open(filePath, 'r')
+
+    for line in readStream:
+        yield line.strip()
+
+    readStream.close()
+
+
+for line in getLine('./text.txt'):
+    print(line)
+
+
+# генератор Фибоначи
+def fiboGen(a=1, b=2, limit=10) -> int:
+    '''fiboGen'''
+    for _ in range(limit):
+        a, b = b, a + b
+        yield b
+
+
+print(list(fiboGen()))
+
+
+# генератор счетчик
+def counterGen(limit=10) -> int:
+    '''counterGen'''
+    i = 0
+
+    while True:
+        yield i
+        i += 1
+
+        if i > limit:
+            raise StopIteration()
+
+
+# создание генераторов из итерируемых типов
+
+genStr = iter('hello world')
+genSet = iter({40, 50, 60})
+
+nums = [10, 20, 30]
+genList1 = iter(nums)
+genList2 = nums.__iter__()
+
+user = {'name': 'vasya', 'age': 30}
+genDict1 = iter(user)
+genDict2 = user.__iter__()

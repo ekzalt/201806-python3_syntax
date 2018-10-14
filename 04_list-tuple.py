@@ -1,7 +1,5 @@
 # списки или массивы (list) в python не типизированные
 
-print('\nlist (array):\n')
-
 arr1 = ['zero', 'one']
 print(len(arr1))  # arr length
 
@@ -55,15 +53,38 @@ arr5 = ['zero', 'one', 'two', 'three', 'four', 'five']
 print(arr5[1])  # -> 'one'
 print(arr5[-2])  # -> 'two'
 
-# for ... in: циклы + массивы
+############################################################
 
-for x in arr5:
-    print(x)
+# переключение значений переменных
 
-# как получить индексы со значениями
+# ВАЖНО! Число элементов спрва и слева от присваивания
+# всегда должно соответствовать друг другу!
 
-for i, x in enumerate(arr5):
-    print(i, x)
+a = 10
+b = 20
+
+a, b = b, a
+print(a, b)
+
+a, b = b, a + b
+print(a, b)
+
+# то же со списками
+
+numsToSwitch = [10, 20 , 30]
+numsToSwitch[0], numsToSwitch[1] = numsToSwitch[1], numsToSwitch[0]
+print(numsToSwitch)
+
+# то же со списками словарей
+
+usersToSwitch = [
+    { 'name': 'vasya', 'age': 20 },
+    { 'name': 'petya', 'age': 30 }
+]
+usersToSwitch[0], usersToSwitch[1] = usersToSwitch[1], usersToSwitch[0]
+print(usersToSwitch)
+
+############################################################
 
 # срезы - item[START_ID = 0 : STOP = length : STEP = 1]
 
@@ -77,8 +98,17 @@ print(arr5[::-1])
 arrLink = arr5  # other link to arr5
 arrCopy = arr5[:]  # copy of arr5
 
-# if ... in: условные операторы + поиск внутри массива
+############################################################
 
+# for ... in: циклы + массивы
+for x in arr5:
+    print(x)
+
+# как получить индексы со значениями
+for idx, value in enumerate(arr5):
+    print(idx, value)
+
+# if ... in: условные операторы + поиск внутри массива
 if 'three' in arr5:
     print('three found :)')
 else:
@@ -93,7 +123,7 @@ else:
 
 # деструктуризация list, переупаковка в list
 sourceNums = [10, 20, 30, 40, 50]
-targetNums = [n for n in sourceNums]
+targetNums = [n * n for n in sourceNums]
 print(targetNums)
 
 # mapping по списку словарей
@@ -101,8 +131,9 @@ user1 = {'name': 'alex', 'car': 'bmw'}
 user2 = {'name': 'john', 'car': 'audi'}
 user3 = {'name': 'max'}
 users = [user1, user2, user3]
+
 # cars = [user['car'] for user in users]  # небезопасно
-cars = [user.get('car', '') for user in users]  # безопасно
+cars = [user.get('car') for user in users if user.get('car')]  # безопасно
 print(cars)
 
 # filter по значениям
@@ -140,10 +171,21 @@ print(userNames)
 
 # Кортежи (tuple) - неизменяемые массивы, методы те же самые, кроме мутирующих
 
-arrList = [10, 20, 30, 40, 50]
-arrTuple = (10, 20, 30, 40, 50)
-arrTuple2 = 10, 20, 30, 40, 50
+arrList = [10, 20, 30]
+arrTuple = (40, 50, 60)
+arrTuple2 = 70, 80, 90
 
 print(arrTuple)
 print('arrList size:', arrList.__sizeof__())
 print('arrTuple size:', arrTuple.__sizeof__())
+
+############################################################
+
+# unpacking - "распаковка"
+# деструктуризация списков (list) и кортежей (tuple)
+
+listItem1, _, listItem3 = arrList
+tupleItem1, _, tupleItem3 = arrTuple
+
+print(listItem1, listItem3)
+print(tupleItem1, tupleItem3)

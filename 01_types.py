@@ -74,7 +74,7 @@ print(fullName.capitalize())
 # %s - string
 # %d - integer
 # %f - float
-print('Hi, %s %s' %(firstName, lastName))
+print('Hi, %s %s' % (firstName, lastName))
 
 # форматированная строка
 print('Hi, {} {}'.format(firstName, lastName))
@@ -83,3 +83,15 @@ print('Hi, {first} {last}'.format(first=firstName, last=lastName))
 # обращаемся к массиву аргументов по индексам
 print('{0} {1} {1} {0}'.format(firstName, lastName))
 # поддерживает словари
+
+# строки так же поддерживают обращение по индексу и срезы
+pyStr = 'python'
+print(pyStr[0])
+print(pyStr[1:-1])
+
+# строки поддерживают оператор in
+res = '{"status": "400", "message": "Error"}'
+isError = 'error' in res.lower()
+
+if isError:
+    print('Got error from server')

@@ -38,6 +38,19 @@ print(user4)
 user4.clear()
 print(user4)
 
+# собираем словарь из списков ключей и значений
+user5 = dict(zip(['name', 'age'], ['Igor', 40]))
+print(user5)
+
+############################################################
+
+# генераторы списков - итерация по словарю
+
+filteredKeys = [key for (key, value) in user5.items() if value is not None]
+filteredValues = [value for (key, value) in user5.items() if value is not None]
+print(filteredKeys)
+print(filteredValues)
+
 ############################################################
 
 # JSON
