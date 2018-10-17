@@ -32,9 +32,8 @@ else:
 
 
 # тренарный оператор
+# (output) = (okValue) if (condition) else (notOkValue)
 
 userInput = input('Enter your name: ')
-
 userName = userInput if userInput else 'Anonymous'
-
 print(userName)

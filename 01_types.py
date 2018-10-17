@@ -95,3 +95,7 @@ isError = 'error' in res.lower()
 
 if isError:
     print('Got error from server')
+
+# байтовые строки (бинарные данные)
+byteStr = b'byte string'
+print(byteStr.decode('utf-8'))

@@ -62,7 +62,8 @@ print(arr5[-2])  # -> 'two'
 
 a = 10
 b = 20
-
+# в этом случае неявно создаются 2 кортежа
+# (a, b) = (b, a)
 a, b = b, a
 print(a, b)
 
@@ -72,6 +73,7 @@ print(a, b)
 # то же со списками
 
 numsToSwitch = [10, 20 , 30]
+# аналогично с неявными безымянными кортежами
 numsToSwitch[0], numsToSwitch[1] = numsToSwitch[1], numsToSwitch[0]
 print(numsToSwitch)
 
@@ -81,6 +83,7 @@ usersToSwitch = [
     { 'name': 'vasya', 'age': 20 },
     { 'name': 'petya', 'age': 30 }
 ]
+# аналогично с неявными безымянными кортежами
 usersToSwitch[0], usersToSwitch[1] = usersToSwitch[1], usersToSwitch[0]
 print(usersToSwitch)
 
@@ -189,3 +192,16 @@ tupleItem1, _, tupleItem3 = arrTuple
 
 print(listItem1, listItem3)
 print(tupleItem1, tupleItem3)
+
+############################################################
+
+# реализация очереди через встроенный модуль
+
+from collections import deque
+
+queue = deque([20, 30], 4)
+
+queue.appendleft(10)
+queue.append(40)
+queue.append(50)
+print(queue)

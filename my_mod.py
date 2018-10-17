@@ -1,3 +1,5 @@
+'''simple module description here'''
+
 # нативная типизация функций в Python 3.5+
 
 

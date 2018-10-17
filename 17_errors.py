@@ -20,7 +20,9 @@ def tryDivide(a: int, b: int) -> float:
 
     try:
         if a > 1000 or b > 1000:
-            raise ValueError('Too much')  # вброс своего исключения со своим сообщением
+            # вброс своего исключения со своим сообщением
+            raise ValueError('Too much')
+
         div = a / b
         return div
     except TypeError:
@@ -49,7 +51,23 @@ print(tryDivide(12, '2'))
 
 # Типизация ошибок - свои исключения - наследуем класс Exception
 
+
 class CustomError(Exception):
     '''CustomError'''
     # custom Exception params
     pass
+
+
+############################################################
+
+# вывод трассировки ошибки
+
+import traceback
+
+try:
+    1 + '42'
+except Exception as error:
+    print(str(error).capitalize())
+    traceback.print_tb(error.__traceback__)
+    # выбросить выше последнее пойманное исключение
+    raise

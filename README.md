@@ -37,7 +37,9 @@ http://pythontutor.ru/
 - Boto 3
 
 https://boto3.readthedocs.io/en/latest/
+
 https://github.com/boto/boto3
+
 https://aws.amazon.com/ru/sdk-for-python/
 
 ### Приложения для научных расчетов
@@ -59,8 +61,7 @@ https://aws.amazon.com/ru/sdk-for-python/
 
 - PyGame
 
-*PyGame* - Приложение для написания игр и мультимедиа приложений. Базируется на мультимедийной библиотеке *SDL*.
-https://www.pygame.org/news
+*PyGame* - Приложение для написания игр и мультимедиа приложений. Базируется на мультимедийной библиотеке *SDL*. https://www.pygame.org/news
 
 ## PIP - пакетный менеджер Python
 
@@ -73,3 +74,15 @@ https://www.pygame.org/news
 - `pip freeze > requirements.txt` - вывод установленных зависимостей
 - `pip install <packageName>` - установка пакета по имени
 - `pip install -r requirements.txt` - установка пакетов по именам из файла
+
+## Tests
+
+*pytest*: helps you write better programs https://docs.pytest.org/en/latest/
+
+*Hypothesis* is a Python library for creating unit tests https://hypothesis.readthedocs.io/en/latest/
+
+## Accelerate Python
+
+*Numba* translates Python functions to optimized machine code at runtime using the industry-standard LLVM compiler library http://numba.pydata.org/
+
+*Cython* gives you the combined power of Python and C https://cython.org/

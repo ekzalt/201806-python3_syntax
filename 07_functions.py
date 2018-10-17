@@ -26,6 +26,27 @@ logger('')
 
 ############################################################
 
+# глобальная область видимости
+
+сounter = 0
+
+
+def increment() -> None:
+    '''increment'''
+    # так будет ошибка - UnboundLocalError!
+    # создаст локальную переменную!
+    # сounter += 1
+
+    # указываем, что изменяем глобальную переменную
+    global сounter
+    сounter += 1
+
+
+increment()
+print(сounter)
+
+############################################################
+
 # closure - замыкания в Python
 
 
@@ -38,29 +59,52 @@ def closureSum(a=0):  # аргументы по умолчанию
 print(closureSum(2)(3))
 
 
-# *args - tuple
-def iterateArgs(*rest):
-    '''iterateArgs'''
-    print('type:', type(rest), ', value:', rest)
-    result = 0
+# изменим переменную из замыкания
+# лучше использовать класс Cell для хранения состояния
+def cell(value=None):
+    '''cell'''
 
-    for val in rest:
-        result += val
+    def getCell():
+        '''getCell'''
+        return value
 
-    return result
+    def setCell(update):
+        '''setCell'''
+        # обращаемся к перемнной из замыкания
+        nonlocal value
+        value = update
 
+    return getCell, setCell
+
+
+getCell, setCell = cell()
+setCell(10)
+print(getCell())
 
 ############################################################
 
 # *args, **kwargs
 
-# *rest - альтернатива ...rest Array оператора в JavaScript
+
+# *args - tuple
+def iterateArgs(*args):
+    '''iterateArgs'''
+    print('type:', type(args), ', value:', args)
+    result = 0
+
+    for val in args:
+        result += val
+
+    return result
+
+
+# *args - альтернатива ...rest Array оператора в JavaScript
 print(iterateArgs(1, 2, 3))
 # деструктуризация list, переупаковка в tuple
 print(iterateArgs(*[1, 2, 3]))
 
 
-# **kwargs (key-value-args) - dict
+# **kwargs - dict
 def getUser(**obj):
     '''getUser'''
     print('type:', type(obj), ', value:', obj)
@@ -148,11 +192,8 @@ def decorate(func):
 
 
 decorated = decorate(tryDivide)
-print(decorated(20, 5))  # -> 4
-
-print(decorate(tryDivide)(15, 3))  # -> 5
-
-# аннотация декораторов как в Angular :)
+print(decorated(20, 5))
+print(decorate(tryDivide)(15, 3))
 
 
 @decorate  # @decoratorName
@@ -247,3 +288,74 @@ genList2 = nums.__iter__()
 user = {'name': 'vasya', 'age': 30}
 genDict1 = iter(user)
 genDict2 = user.__iter__()
+
+
+# yield from - делегирование вызова другому генератору
+def chain(*iterables):
+    '''chain'''
+    for iterable in iterables:
+        yield from iterable
+
+
+############################################################
+
+# coroutines in Python
+
+
+# генератор также может принимать данные
+def genGrep(pattern: str):
+    '''genGrep'''
+    print('pattern:', pattern)
+
+    while True:
+        try:
+            line = yield
+
+            if pattern in line:
+                print(line)
+        except Exception as error:
+            print(str(error))
+
+
+gen = genGrep('oops')
+# перематываем до принимающего yield
+next(gen)
+gen.send('hello world')
+gen.send('oops i did this again')
+# также в генератор можно вброcить исключение
+gen.throw(ValueError, 'some error message here')
+
+import functools
+
+
+# создаем coroutine decorator - теперь next не нужно вызывать
+def coroutine(genFunc):
+    '''coroutine'''
+
+    @functools.wraps(genFunc)
+    def wrapper(*args, **kwargs):
+        '''wrapper'''
+        gen = genFunc(*args, **kwargs)
+        next(gen)
+        return gen
+
+    return wrapper
+
+
+@coroutine
+def grep(pattern: str):
+    '''grep'''
+    print('pattern:', pattern)
+    while True:
+        try:
+            line = yield
+            if pattern in line:
+                print(line)
+        except Exception as error:
+            print(str(error))
+
+
+gen = grep('oops')
+gen.send('hello world')
+gen.send('oops i did this again')
+gen.throw(ValueError, 'some error message here')

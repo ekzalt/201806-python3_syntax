@@ -174,3 +174,51 @@ class Singleton:
 
     def __init__(self):
         self.data = 1234567890
+
+
+############################################################
+
+# метаклассы
+
+
+# создаем класс такого типа с помощью метакласса type
+class SomeOne:
+    '''SomeOne'''
+    attr = 42
+
+
+# name - имя готового класса
+# bases - кортеж классов родителей
+# attrs - словарь атрибутов
+name, bases, attrs = 'SomeTwo', (), {'attr': 42}
+SomeTwo = type(name, bases, attrs)
+
+print(SomeOne)
+print(SomeTwo)
+
+some1 = SomeOne()
+some2 = SomeTwo()
+
+print(some1.attr)
+print(some2.attr)
+
+
+# 1. создаем собственный метакласс и наследуем от type
+class MetaSome(type):
+    '''MetaSome'''
+    # создаем метод метакласса, не будет доступен в инстансе
+    def somePrint(cls) -> None:
+        '''somePrint'''
+        print('prints something')
+
+
+# 2. наследуемся от нашего метакласса (type по умолчанию)
+class SomeThree(metaclass=MetaSome):
+    '''SomeThree'''
+    attr = 42
+
+
+SomeThree.somePrint()
+some3 = SomeThree()
+print(some3.attr)
+# some3.somePrint()  # AttributeError
